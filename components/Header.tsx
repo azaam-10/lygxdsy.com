@@ -41,7 +41,7 @@ const Header: React.FC = () => {
           <div className="text-[15px] font-bold mb-3 opacity-95">My Account</div>
           <div className="flex items-baseline space-x-1.5">
             <span className="text-[13px] font-medium opacity-90">USDT</span>
-            <span className="text-3xl font-bold leading-none">4897.3943</span>
+            <span className="text-3xl font-bold leading-none">8182</span>
           </div>
         </div>
 
