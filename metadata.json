@@ -1,0 +1,5 @@
+{
+  "name": "Mine Clone App",
+  "description": "A pixel-perfect clone of the user profile page based on the provided screenshot, featuring a mobile-first design with a gradient header, account balance, feature grid, and bottom navigation.",
+  "requestFramePermissions": []
+}
